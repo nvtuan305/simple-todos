@@ -1,0 +1,20 @@
+<header>
+    <h1>Todo List</h1>
+
+    <form class="new-task" ng-submit="$ctrl.addTask($ctrl.newTask)" ng-show="$ctrl.currentUser">
+        <input ng-model="$ctrl.newTask" type="text" placeholder="What do you want to do?" />
+    </form>
+
+    <login-buttons></login-buttons>
+</header>
+
+<ul>
+    <li ng-repeat="task in $ctrl.tasks" ng-class="{'checked': task.checked, 'private': task.private}">
+        <button class="delete" ng-click="$ctrl.removeTask(task)">&times;</button>
+        <input type="checkbox" ng-checked="task.checked" ng-click="$ctrl.setChecked(task)" class="toggle-checked" />
+        <span class="text"><strong>{{task.username}}</strong> - {{task.text}}</span>
+        <button class="toggle-private" ng-class="{'btn-private': !task.private}" ng-click="$ctrl.setPrivate(task)" ng-show="task.owner === $ctrl.currentUser._id">
+            {{task.private == false ? "Private" : "Public"}}
+        </button>
+    </li>
+</ul>
